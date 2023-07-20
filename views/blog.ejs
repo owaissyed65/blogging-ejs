@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%- include('./partials/cssbootStraps') %>
+    <title>Blog</title>
+  </head>
+  <body>
+    <%- include('./partials/nav') %>
+    <div class="container mt-3">
+      <div style="text-align: center">
+        <img src="/<%= blog.blogImage %>" alt="error" style="width: 500px" />
+      </div>
+      <pre style="overflow-x: hidden">
+        <%= blog.body %>
+      </pre>
+
+      <h1>Comment</h1>
+      <% if (locals.user) { %>
+      <form action="">
+        <div class="mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="exampleFormControlInput1"
+            placeholder="comment..."
+            name="Comment"
+          />
+          <button class="btn btn-primary mt-2">Comment now...</button>
+        </div>
+      </form>
+      <% } %>
+    </div>
+    <%- include('./partials/jsbootStraps') %>
+  </body>
+</html>
