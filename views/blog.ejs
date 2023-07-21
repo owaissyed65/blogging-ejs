@@ -15,22 +15,28 @@
       <pre style="overflow-x: hidden">
         <%= blog.body %>
       </pre>
-
-      <h1>Comment</h1>
+      <div> <span>This post has created by: </span><%= blog.createdBy.email %> </div>
+      <h1>Comment (<%= comments.length %>)</h1>
       <% if (locals.user) { %>
-      <form action="">
+      <form action="/comment/<%= blog._id %>" method="post">
         <div class="mb-3">
           <input
             type="text"
             class="form-control"
             id="exampleFormControlInput1"
             placeholder="comment..."
-            name="Comment"
+            name="comment"
           />
           <button class="btn btn-primary mt-2">Comment now...</button>
         </div>
       </form>
       <% } %>
+      <ul style="list-style-type: none;" >
+        <% comments.forEach(data => { %>
+          <li style="border: 1px solid black"><%= data.comment %> </li> 
+          Creator:<span style="border: 2px solid red;"><%= data.createdBy.email %></span>
+          <% }) %>
+      </ul>
     </div>
     <%- include('./partials/jsbootStraps') %>
   </body>

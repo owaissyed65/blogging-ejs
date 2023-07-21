@@ -3,6 +3,7 @@ const express = require("express").Router;
 const router = express();
 const path = require("path");
 const Blog = require("../models/Blog");
+const Comment = require("../models/Comment");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -33,13 +34,15 @@ router.post("/addblog", upload.single("blogImage"), async (req, res) => {
   res.redirect(`/blog/${blog._id}`);
 });
 router.get("/:id", async (req, res) => {
-  const blog = await Blog.findById(req.params.id).populate("createdBy")
-  console.log(blog)
-  res.render('blog',{
-    user:req.user,
-    blog
-  })
+  const blog = await Blog.findById(req.params.id).populate("createdBy");
+  const comments = await Comment.find({ blogRef: req.params.id }).populate(
+    "createdBy"
+  );
   
+  res.render("blog", {
+    user: req.user,
+    blog,
+    comments,
+  });
 });
-
 module.exports = router;
